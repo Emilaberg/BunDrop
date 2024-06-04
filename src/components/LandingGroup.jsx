@@ -5,8 +5,9 @@ function LandingGroup() {
     <div className="relative w-full h-screen overflow-hidden">
       {/* video background */}
       <video
-        className="w-full "
+        className="w-full"
         src={video}
+        autoPlay
         muted
         loop
       ></video>
@@ -15,7 +16,7 @@ function LandingGroup() {
 
       {/* Bun drop landing */}
       <div className="absolute text-center top-1/4 left-1/2 -translate-x-1/2">
-        <h1 className="text-darkblue text-8xl font-extrabold">
+        <h1 className="text-darkblue font-extrabold 2xl:text-8xl xl:text-6xl md:text-3xl lg:text-5xl ">
           Bun <span className="text-orange">Drop</span>
         </h1>
 

@@ -1,4 +1,4 @@
-function CTA_button({ text, borderColor, bgColor, w, h }) {
+function CTA_button({ text, fontSize, borderColor, bgColor, w, h }) {
   const styles = `
     text-white 
     uppercase 
@@ -10,6 +10,7 @@ function CTA_button({ text, borderColor, bgColor, w, h }) {
     rounded-[32px] 
     w-[${w}px] 
     h-[${h}px]
+    text-[${fontSize ? fontSize : ""}px]
     `;
 
   return (

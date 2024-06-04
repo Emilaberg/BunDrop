@@ -7,11 +7,13 @@ function HomePage() {
   return (
     <div className="bg-midnightblack">
       <LandingGroup />
-      <div className="min-h-screen pt-32 text-center bg-[url(../src/assets/images/backgrounds/shadows_blobs_1.svg)] bg-no-repeat bg-cover bg-center">
+      <div className="min-h-screen pt-32 bg-[url(../src/assets/images/backgrounds/shadows_blobs_1.svg)] bg-no-repeat bg-cover bg-center">
         <Partners />
 
         <CTA_container />
       </div>
+
+      <div className="min-h-screen"></div>
     </div>
   );
 }
