@@ -3,6 +3,7 @@ import navIcon from "../assets/images/icons/Icon.svg";
 import f_icon from "../assets/images/icons/facebook-f.svg";
 import i_icon from "../assets/images/icons/instagram.svg";
 import { useEffect, useState } from "react";
+import NavLinks from "./NavLinks";
 
 function Navbar() {
   const [time, setTime] = useState(new Date());
@@ -34,11 +35,9 @@ function Navbar() {
           />
         </div>
         <div className="uppercase text-white flex gap-5 mx-auto">
-          <Link to="/">Fly Cart 30</Link>
-          <Link to="/">Vår meny</Link>
-          <Link to="/">Beställ här</Link>
-          <Link to="/">Min order</Link>
+          <NavLinks />
         </div>
+
         <div className="flex w-[119px] justify-between">
           <Link to="/">
             <img

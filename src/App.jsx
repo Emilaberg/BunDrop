@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import OrderPage from "./pages/OrderPage";
 import ErrorPage from "./pages/ErrorPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           element={<ErrorPage />}
         ></Route>
       </Routes>
+
+      <Footer />
     </Router>
   );
 }

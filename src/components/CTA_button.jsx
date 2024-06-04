@@ -2,11 +2,11 @@ function CTA_button({ text, fontSize, borderColor, bgColor, w, h }) {
   const styles = `
     text-white 
     uppercase 
-    ${borderColor ? "border-solid border-2" : ""}  
+    ${borderColor ? "border-solid border-2" : null}  
     px-[20px] 
     py-[7px] 
     bg-${bgColor ? bgColor : "transparent"} 
-    border-${borderColor ? borderColor : ""} 
+    border-${borderColor ? borderColor : "none"} 
     rounded-[32px] 
     w-[${w}px] 
     h-[${h}px]

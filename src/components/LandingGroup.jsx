@@ -19,9 +19,7 @@ function LandingGroup() {
         <h1 className="text-darkblue font-extrabold 2xl:text-8xl xl:text-6xl md:text-3xl lg:text-5xl ">
           Bun <span className="text-orange">Drop</span>
         </h1>
-
         <h3 className="text-white text-2xl font-light pt-2">Food by Drone</h3>
-
         <div className="pt-12 flex justify-between">
           <CTA_button
             text={"läs mer"}
