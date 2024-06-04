@@ -11,7 +11,7 @@ function Searchbar() {
         <div className="flex overflow-hidden justify-start rounded-[34px] h-[42px]">
           <input
             type="text"
-            className=" text-midnightblack w-[600px] "
+            className=" text-midnightblack w-[600px] px-2"
           />
           <button className="bg-orange px-8 py-2">Search</button>
         </div>

@@ -28,11 +28,13 @@ function Navbar() {
       {/* navbar */}
       <nav className="flex justify-center items-center h-[100px] w-full px-[77px] bg-gradient-to-r from-bgblue from-3% to-orange to-100%">
         <div>
-          <img
-            src={navIcon}
-            alt="icon bild"
-            className=" h-[85px] w-[85px]"
-          />
+          <Link to="/">
+            <img
+              src={navIcon}
+              alt="icon bild"
+              className=" h-[85px] w-[85px]"
+            />
+          </Link>
         </div>
         <div className="uppercase text-white flex gap-5 mx-auto">
           <NavLinks />

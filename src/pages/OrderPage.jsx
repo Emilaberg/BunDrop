@@ -1,5 +1,5 @@
 function OrderPage() {
-  return <div>ordersida</div>;
+  return <div className="bg-midnightblack">s</div>;
 }
 
 export default OrderPage;
