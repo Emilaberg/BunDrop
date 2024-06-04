@@ -1,15 +1,17 @@
-import video from "../assets/videos/drone_banner_full.mp4";
+// COMPONENTS
+import LandingGroup from "../components/LandingGroup";
+import Partners from "../components/Partners";
+import CTA_container from "../components/CTA_container";
 
 function HomePage() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Homepage</h1>
-      <video
-        src={video}
-        autoPlay={true}
-        muted
-        loop
-      ></video>
+    <div className="bg-midnightblack">
+      <LandingGroup />
+      <div className="min-h-screen pt-32 text-center bg-[url(../src/assets/images/backgrounds/shadows_blobs_1.svg)] bg-no-repeat bg-cover bg-center">
+        <Partners />
+
+        <CTA_container />
+      </div>
     </div>
   );
 }
