@@ -6,6 +6,7 @@ export default {
       orange: "#AB6946",
       naval: "#16293A",
       darkblue: "#000F29",
+      bgblue: "#002564",
       sand: "#FDEFD2",
       white: "#FCFEFD",
       coal: "#1E1E1E",
