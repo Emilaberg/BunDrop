@@ -12,6 +12,7 @@ export default {
       coal: "#1E1E1E",
       paleGray: "#D9D9D9",
       midnightblack: "#070707",
+      netsblue: "#005776",
     },
     fontFamily: {
       sans: ["Rubik"],

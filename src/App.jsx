@@ -5,12 +5,21 @@ import MenuPage from "./pages/MenuPage";
 import OrderPage from "./pages/OrderPage";
 import ErrorPage from "./pages/ErrorPage";
 import Footer from "./components/Footer";
+import PaymentNavbar from "./components/PaymentNavbar";
+import { useEffect, useState } from "react";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
+  // checkar om man är på betalningsidan och visar då navbaren.
+
+  const [check, setCheck] = useState(false);
+  // förhindrar så att man inte kan nå betalningsidan genom bara url, buggig som faAn
+  const [ongoingOrder, setOngoingOrder] = useState(false);
+
   return (
     <Router>
       {/* KOMMER VISAS PÅ ALLA SIDOR */}
-      <Navbar />
+      {check ? <PaymentNavbar /> : <Navbar />}
 
       {/* KOMMER VISAS PÅ ALLA SIDOR */}
 
@@ -27,8 +36,24 @@ function App() {
         ></Route>
         <Route
           path="/min-order"
-          element={<OrderPage />}
+          element={
+            <OrderPage
+              ongoingOrder={ongoingOrder}
+              setOngoingOrder={setOngoingOrder}
+            />
+          }
         ></Route>
+        <Route
+          path="/betalning"
+          element={
+            <PaymentPage
+              check={check}
+              setCheck={setCheck}
+              ongoingOrder={ongoingOrder}
+            />
+          }
+        ></Route>
+
         {/* ERROR MÅSTE VARA SIST */}
         <Route
           path="*"
@@ -36,7 +61,7 @@ function App() {
         ></Route>
       </Routes>
 
-      <Footer />
+      {check ? "" : <Footer />}
     </Router>
   );
 }
