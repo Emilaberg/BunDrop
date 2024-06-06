@@ -26,12 +26,14 @@ function LandingGroup() {
             borderColor={"orange"}
             w={150}
             h={42}
+            link="/"
           />
           <CTA_button
             text="Beställ"
             bgColor="orange"
             w={150}
             h={42}
+            link="/meny"
           />
         </div>
       </div>

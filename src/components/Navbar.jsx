@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import navIcon from "../assets/images/icons/Icon.svg";
 import f_icon from "../assets/images/icons/facebook-f.svg";
 import i_icon from "../assets/images/icons/instagram.svg";
+import cart from "../assets/images/icons/cart.svg";
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 
 function Navbar() {
   const [time, setTime] = useState(new Date());
-
+  const [cartHidden, setCartHidden] = useState(false);
   function tick() {
     setTime(new Date());
   }
@@ -40,7 +41,59 @@ function Navbar() {
           <NavLinks />
         </div>
 
-        <div className="flex w-[119px] justify-between">
+        <div className="flex w-[119px] justify-evenly items-center">
+          <span className="relative ">
+            <img
+              src={cart}
+              alt="cart"
+              className="w-[26px] text-white cursor-pointer"
+              onClick={() => setCartHidden(!cartHidden)}
+            />
+            {/* containern */}
+            <div
+              className={`absolute z-10 right-0 py-5 px-2 bg-white ${
+                cartHidden ? "" : "hidden"
+              }`}
+            >
+              {/* items */}
+              <div className="flex items-center w-max mt-2">
+                <div className="flex">
+                  <span>-</span>
+                  <span>Chicken Creole</span>
+                </div>
+                <div className="ml-10">89,90 kr</div>
+                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                  <div>-</div>
+                  <span className="mx-2">1</span>
+                  <div>+</div>
+                </div>
+              </div>
+              <div className="flex items-center w-max mt-2">
+                <div className="flex">
+                  <span>-</span>
+                  <span>Chicken Creole</span>
+                </div>
+                <div className="ml-10">89,90 kr</div>
+                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                  <div>-</div>
+                  <span className="mx-2">1</span>
+                  <div>+</div>
+                </div>
+              </div>
+              <div className="flex items-center w-max mt-2">
+                <div className="flex">
+                  <span>-</span>
+                  <span>Chicken Creole</span>
+                </div>
+                <div className="ml-10">89,90 kr</div>
+                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                  <div>-</div>
+                  <span className="mx-2">1</span>
+                  <div>+</div>
+                </div>
+              </div>
+            </div>
+          </span>
           <Link to="/">
             <img
               src={f_icon}
@@ -48,6 +101,7 @@ function Navbar() {
               className="w-[18px]"
             />
           </Link>
+
           <Link to="/">
             <img
               src={i_icon}

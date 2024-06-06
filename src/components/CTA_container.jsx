@@ -17,6 +17,7 @@ function CTA_container() {
           borderColor="orange"
           w={485}
           h={59}
+          link="/meny"
         />
         <CTA_button
           text="Beställ nu"
@@ -24,6 +25,7 @@ function CTA_container() {
           bgColor="orange"
           w={385}
           h={59}
+          link="/min-order"
         />
       </div>
     </div>
