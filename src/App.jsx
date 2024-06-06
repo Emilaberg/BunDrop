@@ -8,19 +8,19 @@ import Footer from "./components/Footer";
 import PaymentNavbar from "./components/PaymentNavbar";
 import { useEffect, useState } from "react";
 import PaymentPage from "./pages/PaymentPage";
+import OrderConfirmedPage from "./pages/OrderConfirmedPage";
 
 function App() {
   // checkar om man är på betalningsidan och visar då navbaren.
 
-  const [check, setCheck] = useState(false);
   // förhindrar så att man inte kan nå betalningsidan genom bara url, buggig som faAn
   const [ongoingOrder, setOngoingOrder] = useState(false);
 
+  function createOrderId() {
+    return "order-id-1";
+  }
   return (
     <Router>
-      {/* KOMMER VISAS PÅ ALLA SIDOR */}
-      {check ? <PaymentNavbar /> : <Navbar />}
-
       {/* KOMMER VISAS PÅ ALLA SIDOR */}
 
       {/* Routes på sidan */}
@@ -36,22 +36,20 @@ function App() {
         ></Route>
         <Route
           path="/min-order"
+          element={<OrderPage setOngoingOrder={setOngoingOrder} />}
+        ></Route>
+        <Route
+          path="/betalning/:paymentMethod"
           element={
-            <OrderPage
+            <PaymentPage
               ongoingOrder={ongoingOrder}
-              setOngoingOrder={setOngoingOrder}
+              createOrderId={createOrderId}
             />
           }
         ></Route>
         <Route
-          path="/betalning"
-          element={
-            <PaymentPage
-              check={check}
-              setCheck={setCheck}
-              ongoingOrder={ongoingOrder}
-            />
-          }
+          path="/order-confirmation/:orderId"
+          element={<OrderConfirmedPage />}
         ></Route>
 
         {/* ERROR MÅSTE VARA SIST */}
@@ -60,8 +58,6 @@ function App() {
           element={<ErrorPage />}
         ></Route>
       </Routes>
-
-      {check ? "" : <Footer />}
     </Router>
   );
 }
