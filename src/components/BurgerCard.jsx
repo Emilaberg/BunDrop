@@ -12,9 +12,6 @@ function BurgerCard({ bg, title, description }) {
       <div className="flex flex-col items-center mb-5">
         <h3>{title}</h3>
         <span>{description}</span>
-        <span>onions rings</span>
-        <span>chech lager</span>
-        <span>truffle dip</span>
       </div>
     </div>
   );
