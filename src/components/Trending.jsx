@@ -16,8 +16,7 @@ function Trending() {
         {menu.slice(0, 3).map((burger) => (
           <BurgerCard
             key={burger.id}
-            title={burger.title}
-            description={burger.description}
+            item={burger}
           />
         ))}
       </div>

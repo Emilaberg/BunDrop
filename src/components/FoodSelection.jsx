@@ -7,9 +7,7 @@ function FoodSelection({ menu, filteredMenu }) {
             <BurgerCard
               bg="sand"
               key={burger.id}
-              title={burger.title}
-              description={burger.description}
-              price={burger.price}
+              item={burger}
             />
           ))
         : menu.length
@@ -17,9 +15,7 @@ function FoodSelection({ menu, filteredMenu }) {
             <BurgerCard
               bg="sand"
               key={burger.id}
-              title={burger.title}
-              description={burger.description}
-              price={burger.price}
+              item={burger}
             />
           ))
         : ""}
