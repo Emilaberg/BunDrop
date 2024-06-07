@@ -1,6 +1,6 @@
 import Sorting from "./Sorting";
 
-function Searchbar({ onSearch }) {
+function Searchbar({ onSearch, onSort }) {
   function handleOnSeach(e) {
     onSearch(e.target.value);
   }
@@ -21,7 +21,7 @@ function Searchbar({ onSearch }) {
         </div>
       </div>
       <div className="flex justify-center">
-        <Sorting />
+        <Sorting onSort={onSort} />
       </div>
     </>
   );
