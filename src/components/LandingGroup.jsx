@@ -11,7 +11,7 @@ function LandingGroup() {
         muted
         loop
       ></video>
-      <div className="absolute top-0 bg-gradient-to-br from-bgblue from-0% to-orange to-90% h-full w-full opacity-50"></div>
+      <div className="absolute top-0 bg-gradient-to-br from-bgblue from-0% to-orange to-90% h-full w-full opacity-80"></div>
       {/* video background */}
 
       {/* Bun drop landing */}

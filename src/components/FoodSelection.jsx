@@ -1,23 +1,26 @@
 import BurgerCard from "./BurgerCard";
-import { useEffect, useState } from "react";
-function FoodSelection() {
-  const [menu, setMenu] = useState();
-  useEffect(() => {
-    fetch("http://localhost:3000/menu")
-      .then((res) => res.json())
-      .then((data) => setMenu(data));
-  }, [menu]);
-
+function FoodSelection({ menu, filteredMenu }) {
   return (
     <div className="grid grid-cols-3 grid-flow-rows gap-10 mt-10">
-      {menu.map((burger) => (
-        <BurgerCard
-          bg="sand"
-          key={burger.id}
-          title={burger.title}
-          description={burger.description}
-        />
-      ))}
+      {filteredMenu
+        ? filteredMenu.map((burger) => (
+            <BurgerCard
+              bg="sand"
+              key={burger.id}
+              title={burger.title}
+              description={burger.description}
+            />
+          ))
+        : menu
+        ? menu.map((burger) => (
+            <BurgerCard
+              bg="sand"
+              key={burger.id}
+              title={burger.title}
+              description={burger.description}
+            />
+          ))
+        : ""}
     </div>
   );
 }

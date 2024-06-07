@@ -1,6 +1,9 @@
 import Sorting from "./Sorting";
 
-function Searchbar() {
+function Searchbar({ onSearch }) {
+  function handleOnSeach(e) {
+    onSearch(e.target.value);
+  }
   return (
     <>
       <div className="text-white flex justify-center items-center">
@@ -12,6 +15,7 @@ function Searchbar() {
           <input
             type="text"
             className=" text-midnightblack w-[600px] px-2"
+            onChange={handleOnSeach}
           />
           <button className="bg-orange px-8 py-2">Search</button>
         </div>
