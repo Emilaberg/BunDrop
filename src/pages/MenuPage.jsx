@@ -41,6 +41,10 @@ function MenuPage() {
       case "price_desc":
         sortedFilteredMenu.sort((a, b) => a.price - b.price);
         break;
+      case "alphabetic":
+        sortedFilteredMenu.sort((a, b) => a.title.localeCompare(b.title));
+        console.log(sortedFilteredMenu);
+        break;
 
       default:
       // sortedFilteredMenu.sort((a, b) => b.price - a.price);
