@@ -2,16 +2,24 @@ import { Link } from "react-router-dom";
 import navIcon from "../assets/images/icons/Icon.svg";
 import f_icon from "../assets/images/icons/facebook-f.svg";
 import i_icon from "../assets/images/icons/instagram.svg";
-import cart from "../assets/images/icons/cart.svg";
+import cartIcon from "../assets/images/icons/cart.svg";
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 
 function Navbar() {
   const [time, setTime] = useState(new Date());
   const [cartHidden, setCartHidden] = useState(false);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+
   function tick() {
     setTime(new Date());
   }
+
+  //EXTRACT CHANGES FROM LOCALSTORAGE TO HOOK SÅ ATT JAG KAN ANVÄNDA DET I BÅDE NAVBAR OCH I BURGERCARD.
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")));
+  }, []);
 
   useEffect(() => {
     setInterval(() => tick(), 1000);
@@ -44,7 +52,7 @@ function Navbar() {
         <div className="flex w-[119px] justify-evenly items-center">
           <span className="relative ">
             <img
-              src={cart}
+              src={cartIcon}
               alt="cart"
               className="w-[26px] text-white cursor-pointer"
               onClick={() => setCartHidden(!cartHidden)}
@@ -55,6 +63,23 @@ function Navbar() {
                 cartHidden ? "" : "hidden"
               }`}
             >
+              {cart.map((cartItem) => (
+                <div
+                  key={cartItem.item_id}
+                  className="flex items-center w-max mt-2"
+                >
+                  <div className="flex">
+                    <span>-</span>
+                    <span>{cartItem.item_id}</span>
+                  </div>
+                  <div className="ml-10">89,90 kr</div>
+                  <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                    <div>-</div>
+                    <span className="mx-2">{cartItem.count}</span>
+                    <div>+</div>
+                  </div>
+                </div>
+              ))}
               {/* items */}
               <div className="flex items-center w-max mt-2">
                 <div className="flex">

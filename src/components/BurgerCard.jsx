@@ -43,20 +43,27 @@ function BurgerCard({ bg, item }) {
     //skriv över den dåvarande carten med den nya carten, med att stringify:a den
   }
   return (
-    <div className="text-white bg-midnightblack bg-opacity-70 drop-shadow-md rounded-[23px] cursor-pointer">
+    <div className="flex flex-col text-white bg-midnightblack bg-opacity-70 drop-shadow-md rounded-[23px] cursor-pointer">
       <img
         src={burger}
         alt=""
         className={imageStyle}
       />
       <div className="flex flex-col items-center mb-5">
-        <h1>{item.price}</h1>
+        <h1>{item.price} kr</h1>
         <h3>{item.title}</h3>
-        <span>{item.description}</span>
+        <span className="text-sm">{item.description}</span>
       </div>
-      <div>
-        <button onClick={addItemToLocalCart}>Add</button>
-        <button>favorite</button>
+      <div className="mt-auto mx-auto">
+        <button
+          className="mr-2 px-2 py-1 border-solid border-2 border-orange active:bg-orange rounded-xl"
+          onClick={addItemToLocalCart}
+        >
+          Add
+        </button>
+        <button className="px-2 py-1 border-solid border-2 border-orange active:bg-orange rounded-xl">
+          favorite
+        </button>
       </div>
     </div>
   );

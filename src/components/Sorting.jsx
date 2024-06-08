@@ -39,26 +39,6 @@ function Sorting({ onSort }) {
       >
         a till ö
       </button>
-      <button
-        className={
-          currentSorting == ""
-            ? "border-solid border-2 border-orange border-opacity-100 px-3 py-1 rounded-xl text-white"
-            : "border-solid border-2 border-orange border-opacity-0 px-3 py-1 rounded-xl text-white"
-        }
-        onClick={() => handleSort("NEW")}
-      >
-        Favoriterna
-      </button>
-      <button
-        className={
-          currentSorting == ""
-            ? "border-solid border-2 border-orange border-opacity-100 px-3 py-1 rounded-xl text-white"
-            : "border-solid border-2 border-orange border-opacity-0 px-3 py-1 rounded-xl text-white"
-        }
-        onClick={() => handleSort("price")}
-      >
-        nyheter
-      </button>
     </div>
   );
 }
