@@ -21,6 +21,9 @@ function OrderConfirmedPage() {
           status på din order
         </h3>
         <h5>Användarnamn kan du ändra under inställningar</h5>
+        <h1>
+          Estimated time {Math.floor(Math.random() * (50 - 10) + 10)} minutes
+        </h1>
       </div>
       <Footer />
     </>
