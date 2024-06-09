@@ -5,24 +5,33 @@ import i_icon from "../assets/images/icons/instagram.svg";
 import cartIcon from "../assets/images/icons/cart.svg";
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
+import Localstorage from "../hooks/Localstorage";
 
 function Navbar() {
   const [time, setTime] = useState(new Date());
   const [cartHidden, setCartHidden] = useState(false);
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+  const [cart, setCart] = useState([]);
+
+  const dbHook = Localstorage();
 
   function tick() {
     setTime(new Date());
   }
 
+  function showCart() {
+    console.log(dbHook.cart);
+    let res = localStorage.getItem("cart");
+    setCart(JSON.parse(res));
+    setCartHidden(!cartHidden);
+  }
   //EXTRACT CHANGES FROM LOCALSTORAGE TO HOOK SÅ ATT JAG KAN ANVÄNDA DET I BÅDE NAVBAR OCH I BURGERCARD.
 
-  useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")));
-  }, []);
+  // useEffect(() => {
+  //   setCart(JSON.parse(localStorage.getItem("cart")));
+  // }, []);
 
   useEffect(() => {
-    setInterval(() => tick(), 1000);
+    // setInterval(() => tick(), 1000);
   });
 
   const alertMessage = "Kolla in vår nya sortiment av burgare ";
@@ -30,7 +39,7 @@ function Navbar() {
     <div className="w-full">
       {/* Alert banner */}
       <div className="px-[19px] flex justify-between items-center bg-midnightblack h-[33px]">
-        <div className="text-white w-[40px]">{time.toLocaleTimeString()}</div>
+        <div className="text-white w-auto">{time.toDateString()}</div>
         <div className="text-white">{alertMessage}</div>
         <button className="text-white">Logga in</button>
       </div>
@@ -55,7 +64,7 @@ function Navbar() {
               src={cartIcon}
               alt="cart"
               className="w-[26px] text-white cursor-pointer"
-              onClick={() => setCartHidden(!cartHidden)}
+              onClick={showCart}
             />
             {/* containern */}
             <div
@@ -63,60 +72,26 @@ function Navbar() {
                 cartHidden ? "" : "hidden"
               }`}
             >
-              {cart.map((cartItem) => (
-                <div
-                  key={cartItem.item_id}
-                  className="flex items-center w-max mt-2"
-                >
-                  <div className="flex">
-                    <span>-</span>
-                    <span>{cartItem.item_id}</span>
-                  </div>
-                  <div className="ml-10">89,90 kr</div>
-                  <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                    <div>-</div>
-                    <span className="mx-2">{cartItem.count}</span>
-                    <div>+</div>
-                  </div>
-                </div>
-              ))}
               {/* items */}
-              <div className="flex items-center w-max mt-2">
-                <div className="flex">
-                  <span>-</span>
-                  <span>Chicken Creole</span>
-                </div>
-                <div className="ml-10">89,90 kr</div>
-                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                  <div>-</div>
-                  <span className="mx-2">1</span>
-                  <div>+</div>
-                </div>
-              </div>
-              <div className="flex items-center w-max mt-2">
-                <div className="flex">
-                  <span>-</span>
-                  <span>Chicken Creole</span>
-                </div>
-                <div className="ml-10">89,90 kr</div>
-                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                  <div>-</div>
-                  <span className="mx-2">1</span>
-                  <div>+</div>
-                </div>
-              </div>
-              <div className="flex items-center w-max mt-2">
-                <div className="flex">
-                  <span>-</span>
-                  <span>Chicken Creole</span>
-                </div>
-                <div className="ml-10">89,90 kr</div>
-                <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                  <div>-</div>
-                  <span className="mx-2">1</span>
-                  <div>+</div>
-                </div>
-              </div>
+              {cart.length > 0
+                ? cart.map((i) => (
+                    <div
+                      key={i.item_id}
+                      className="flex items-center w-max mt-2"
+                    >
+                      <div className="flex">
+                        <span>-</span>
+                        <span>Chicken Creole id {i.item_id}</span>
+                      </div>
+                      <div className="ml-10">89,90 kr</div>
+                      <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                        <div>-</div>
+                        <span className="mx-2">{i.count}</span>
+                        <div>+</div>
+                      </div>
+                    </div>
+                  ))
+                : "No items added"}
             </div>
           </span>
           <Link to="/">
