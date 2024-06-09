@@ -10,6 +10,15 @@ function OrderItemsContainer({
   cart,
   totalPrice,
 }) {
+  function calcTotalPrice() {
+    let price = 0;
+
+    cart.forEach((item) => {
+      price += item.price * item.count;
+    });
+
+    return price;
+  }
   return (
     <div className="mt-20 flex flex-col">
       <div>
@@ -50,7 +59,7 @@ function OrderItemsContainer({
       <div className="bg-midnightblack mt-36 px-2 py-1">
         <div className="flex items-center">
           Total (inc. VAT)
-          <span className="ml-auto">{totalPrice} kr</span>
+          <span className="ml-auto">{calcTotalPrice()} kr</span>
         </div>
 
         <button

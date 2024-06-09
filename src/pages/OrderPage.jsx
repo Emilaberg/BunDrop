@@ -12,7 +12,7 @@ function OrderPage({ setOngoingOrder }) {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [cart, setCart] = useState([]);
-  const [totalPrice, setTotalPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState(0);
   const dbHook = Localstorage();
 
   function reviewOrder() {
@@ -26,14 +26,7 @@ function OrderPage({ setOngoingOrder }) {
   useEffect(() => {
     let res = localStorage.getItem("cart");
     res ? setCart(JSON.parse(res)) : res;
-    calcTotalprice();
   }, []);
-
-  function calcTotalprice() {
-    let price = 0;
-    cart.forEach((i) => (price += i.price));
-    setTotalPrice(price);
-  }
 
   function handleAdd(item) {
     dbHook.add(item);
