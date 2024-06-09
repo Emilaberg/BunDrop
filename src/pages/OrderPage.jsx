@@ -4,11 +4,16 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Payslip from "../components/Payslip";
 import { Link } from "react-router-dom";
+import Localstorage from "../hooks/Localstorage";
+
 function OrderPage({ setOngoingOrder }) {
   const [reviewOrderDetails, setReviewOrderDetails] = useState(true);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
 
   const [rememberMe, setRememberMe] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState();
+  const dbHook = Localstorage();
 
   function reviewOrder() {
     setReviewOrderDetails(!reviewOrderDetails);
@@ -16,6 +21,32 @@ function OrderPage({ setOngoingOrder }) {
 
   function handleSelectPaymentMethod(e) {
     setSelectedPaymentMethod(e.target.value);
+  }
+
+  useEffect(() => {
+    let res = localStorage.getItem("cart");
+    res ? setCart(JSON.parse(res)) : res;
+    calcTotalprice();
+  }, []);
+
+  function calcTotalprice() {
+    let price = 0;
+    cart.forEach((i) => (price += i.price));
+    setTotalPrice(price);
+  }
+
+  function handleAdd(item) {
+    dbHook.add(item);
+
+    let res = localStorage.getItem("cart");
+    res ? setCart(JSON.parse(res)) : res;
+  }
+
+  function handleRemove(item) {
+    dbHook.remove(item);
+
+    let res = localStorage.getItem("cart");
+    res ? setCart(JSON.parse(res)) : res;
   }
 
   return (
@@ -28,9 +59,12 @@ function OrderPage({ setOngoingOrder }) {
         <div className="flex justify-between">
           {reviewOrderDetails ? (
             <div className="flex-grow mr-20">
-              <OrderItem />
-              <OrderItem />
-              <OrderItem />
+              {cart.map((i) => (
+                <OrderItem
+                  key={i.item_id}
+                  item={i}
+                />
+              ))}
             </div>
           ) : (
             <div className="flex flex-col flex-grow">
@@ -143,6 +177,10 @@ function OrderPage({ setOngoingOrder }) {
           <Payslip
             setReviewOrderDetails={reviewOrder}
             orderState={reviewOrderDetails}
+            handleAdd={handleAdd}
+            handleRemove={handleRemove}
+            cart={cart}
+            totalPrice={totalPrice}
           />
         </div>
       </div>

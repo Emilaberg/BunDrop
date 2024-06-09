@@ -1,6 +1,6 @@
 import foodImage from "../assets/images/foods/food_image_2.svg";
 
-function OrderItem() {
+function OrderItem({ item }) {
   return (
     <div className="bg-coal flex items-center w-full my-4 pr-5 rounded-xl">
       <img
@@ -9,10 +9,11 @@ function OrderItem() {
         alt=""
       />
       <div className="ml-10">
-        <h1>Cheesy Croele</h1>
-        <p>dip,cola</p>
+        <h1>{item.title}</h1>
       </div>
-      <span className="ml-auto">89kr</span>
+      <span className="ml-auto">
+        {item.count} st á {item.price} kr
+      </span>
     </div>
   );
 }

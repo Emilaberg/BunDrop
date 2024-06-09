@@ -1,6 +1,13 @@
 import OrderItemsContainer from "./OrderItemsContainer";
 
-function Payslip({ setReviewOrderDetails, orderState }) {
+function Payslip({
+  setReviewOrderDetails,
+  orderState,
+  handleAdd,
+  handleRemove,
+  cart,
+  totalPrice,
+}) {
   return (
     <div className="bg-gradient-to-r from-bgblue from-3% to-orange to-100% rounded-[26px] py-2 px-2 max-w-96 h-full">
       <div className="bg-coal text-white rounded-[26px] h-full w-full py-5 px-4">
@@ -19,6 +26,10 @@ function Payslip({ setReviewOrderDetails, orderState }) {
         <OrderItemsContainer
           setReviewOrderDetails={setReviewOrderDetails}
           orderState={orderState}
+          handleAdd={handleAdd}
+          handleRemove={handleRemove}
+          cart={cart}
+          totalPrice={totalPrice}
         />
       </div>
     </div>

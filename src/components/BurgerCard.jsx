@@ -3,6 +3,9 @@ function BurgerCard({ bg, item, dbHook }) {
   const imageStyle = `w-full bg-${bg ? "sand" : ""} rounded-[10px]`;
   let cartItem = {
     item_id: item.id,
+    title: item.title,
+    price: item.price,
+    description: item.description,
     count: 1,
   };
 
