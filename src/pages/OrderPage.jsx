@@ -18,10 +18,27 @@ function OrderPage({ setOngoingOrder }) {
   const dbHook = Localstorage();
 
   const [name, setName] = useState("");
+  const [nameValid, setnameValid] = useState(false);
   const [number, setNumber] = useState("");
+  const [numberValid, setnumberValid] = useState(false);
   const [email, setemail] = useState("");
+  const [emailValid, setemailValid] = useState(false);
   const [password, setPassword] = useState("");
+  const [passwordValid, setpasswordValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  function validate() {
+    name.length > 5 && setnameValid(true);
+    number.length > 9 && setnumberValid(true);
+    email.length > 5 && setemailValid(true);
+    email.includes("@") ? setemailValid(true) : setemailValid(false);
+
+    if (nameValid && numberValid && emailValid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function reviewOrder() {
     setReviewOrderDetails(!reviewOrderDetails);
@@ -35,18 +52,29 @@ function OrderPage({ setOngoingOrder }) {
     e.preventDefault();
     setOngoingOrder(true);
 
-    let n = (Math.random() * 0xfffff * 1000000).toString(16);
-    let order = {
-      id: n,
-      name: name,
-      number: number,
-      email: email,
-      password: password,
-      items: cart,
-    };
-    // dbHook.createOrder(order);
-    localStorage.setItem(`${n}`, JSON.stringify(order));
-    Navigate(`/betalning/nets_paymentMethod_${selectedPaymentMethod}/${n}`);
+    if (validate()) {
+      let n = (Math.random() * 0xfffff * 1000000).toString(16);
+
+      let finalPrice = 0;
+
+      cart.forEach((item) => {
+        finalPrice += item.price * item.count;
+      });
+
+      let order = {
+        id: n,
+        name: name,
+        number: number,
+        email: email,
+        password: password,
+        items: cart,
+        price: finalPrice,
+      };
+      // dbHook.createOrder(order);
+      localStorage.setItem(`${n}`, JSON.stringify(order));
+      Navigate(`/betalning/nets_paymentMethod_${selectedPaymentMethod}/${n}`);
+    }
+    console.log("det är felskrivet nånting");
   }
 
   useEffect(() => {
@@ -114,8 +142,14 @@ function OrderPage({ setOngoingOrder }) {
                       placeholder="namn"
                       onChange={(e) => setName(e.target.value)}
                     />
-                    <div>
-                      Obligatorisk <span className=" text-orange">*</span>
+
+                    <div className="h-10 w-full">
+                      {!nameValid && (
+                        <span>
+                          Obligatorisk <span className=" text-orange">*</span>{" "}
+                          längre än 5 karaktärer
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="mt-auto">
@@ -125,8 +159,12 @@ function OrderPage({ setOngoingOrder }) {
                       placeholder="telefonnummer"
                       onChange={(e) => setNumber(e.target.value)}
                     />
-                    <div>
-                      Obligatorisk <span className=" text-darkblue">*</span>
+                    <div className="h-10 w-full">
+                      {!numberValid && (
+                        <span>
+                          Obligatorisk <span className=" text-orange">*</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -136,9 +174,11 @@ function OrderPage({ setOngoingOrder }) {
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}
                     />
-                    <div>
-                      Obligatorisk <span className=" text-darkblue">*</span>
-                    </div>
+                    {!emailValid && (
+                      <span>
+                        Obligatorisk <span className=" text-orange">*</span>
+                      </span>
+                    )}
                   </div>
                   <div>
                     <div>

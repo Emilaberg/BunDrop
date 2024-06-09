@@ -22,23 +22,20 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
   const [validYear, setValidYear] = useState("");
   const [cvv, setCvv] = useState("");
   const [currentOrder, setCurrentOrder] = useState({});
+  const [finalPrice, setFinalPrice] = useState();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (ongoingOrder == false) {
       navigate("/");
     }
+    let res = localStorage.getItem(`${orderId}`);
+    let order = JSON.parse(res);
+    setFinalPrice(order.price);
   }, []);
 
   function pay(e) {
     e.preventDefault();
-
-    // console.log(orderId);
-    // fetch("http://localhost:3000/orders")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     let order = data.filter((o) => o.id == orderId);
-    //     setCurrentOrder(order);
-    //   });
 
     let res = localStorage.getItem(`${orderId}`);
     let order = JSON.parse(res);
@@ -58,8 +55,27 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
   }
 
   function onSwishConfirmation() {
-    const order = createOrder();
-    navigate(`/order-confirmation/${order.id}`);
+    let res = localStorage.getItem(`${orderId}`);
+    let order = JSON.parse(res);
+
+    let payment = {
+      order: order,
+      cardNumber: cardNumber,
+      validMonth: validMonth,
+      validYear: validYear,
+      cvv: cvv,
+    };
+
+    currentOrder.confirmed = true;
+    dbHook.createOrder(payment);
+    localStorage.clear();
+    navigate(`/order-confirmation/${currentOrder.id}`);
+  }
+
+  function handleCancel() {
+    setCheck(false);
+    localStorage.clear();
+    navigate("/");
   }
   return (
     <>
@@ -69,7 +85,8 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
           <div className="mx-auto w-1/3">
             <h1 className="font-bold text-xl">Betala Med Kort</h1>
             <div className="flex bg-paleGray px-2 py-1 my-5">
-              Beställning Från Bun Drop <span className="ml-auto">494,00</span>
+              Beställning Från Bun Drop
+              <span className="ml-auto">{finalPrice} kr</span>
             </div>
             <div className="my-5">
               <h3 className="font-bold text-lg my-1">
@@ -177,13 +194,13 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
               />
 
               <div className="uppercase w-full flex gap-2">
-                <Link
+                <button
                   className="bg-paleGray w-1/2 text-center py-3"
-                  onClick={() => setCheck(false)}
+                  onClick={handleCancel}
                   to={"/min-order"}
                 >
                   Avbryt
-                </Link>
+                </button>
                 <button
                   onClick={pay}
                   className="bg-paleGray w-1/2 text-center py-3"
@@ -201,7 +218,7 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
               src={swishIcon}
               alt=""
             />
-            <Link>Avbryt order</Link>
+            <button onClick={handleCancel}>Avbryt order</button>
             <input
               type="checkbox"
               name=""
