@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Sorting({ onSort }) {
+function Sorting({ onSort, resr }) {
   const [currentSorting, setCurrentSorting] = useState();
   function handleSort(prop) {
     setCurrentSorting(prop);

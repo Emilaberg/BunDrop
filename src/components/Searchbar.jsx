@@ -1,6 +1,6 @@
 import Sorting from "./Sorting";
 
-function Searchbar({ onSearch, onSort }) {
+function Searchbar({ onSearch, onSort, resetSearch }) {
   function handleOnSeach(e) {
     onSearch(e.target.value);
   }

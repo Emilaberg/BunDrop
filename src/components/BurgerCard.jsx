@@ -16,14 +16,14 @@ function BurgerCard({ bg, item, dbHook }) {
   return (
     <div className="flex flex-col text-white bg-midnightblack bg-opacity-70 drop-shadow-md rounded-[23px] cursor-pointer">
       <img
-        src={burger}
+        src={item.image}
         alt=""
         className={imageStyle}
       />
       <div className="flex flex-col items-center mb-5">
-        <h1>{item.price} kr</h1>
-        <h3>{item.title}</h3>
-        <span className="text-sm">{item.description}</span>
+        <span className="text-2xl text-naval capitalize">{item.category}</span>
+        <h3 className="text-3xl">{item.title}</h3>
+        <h1 className="text-xl">{item.price} kr</h1>
       </div>
       <div className="mt-auto mx-auto">
         <button

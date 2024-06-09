@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 function MenuPage() {
   const [menu, setMenu] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-
+  const [resetSearch, setResetSearch] = useState(false);
   useEffect(() => {
     fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => setMenu(data));
+    console.log(menu);
   }, []);
 
   function onSearch(value) {

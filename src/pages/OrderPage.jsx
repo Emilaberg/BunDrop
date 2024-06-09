@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Payslip from "../components/Payslip";
 import { Link, useNavigate } from "react-router-dom";
 import Localstorage from "../hooks/Localstorage";
-
+import CTA_button from "../components/CTA_button";
 function OrderPage({ setOngoingOrder }) {
   const [reviewOrderDetails, setReviewOrderDetails] = useState(true);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
@@ -78,12 +78,22 @@ function OrderPage({ setOngoingOrder }) {
         <div className="flex justify-between">
           {reviewOrderDetails ? (
             <div className="flex-grow mr-20">
-              {cart.map((i) => (
-                <OrderItem
-                  key={i.item_id}
-                  item={i}
+              {cart.length > 0 ? (
+                cart.map((i) => (
+                  <OrderItem
+                    key={i.item_id}
+                    item={i}
+                  />
+                ))
+              ) : (
+                <CTA_button
+                  text={"hungry?"}
+                  borderColor={"orange"}
+                  w={150}
+                  h={42}
+                  link="/meny"
                 />
-              ))}
+              )}
             </div>
           ) : (
             <div className="flex flex-col flex-grow">
