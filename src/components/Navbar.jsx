@@ -6,6 +6,7 @@ import cartIcon from "../assets/images/icons/cart.svg";
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 import Localstorage from "../hooks/Localstorage";
+import CartItem from "./CartItem";
 
 function Navbar() {
   const [time, setTime] = useState(new Date());
@@ -73,6 +74,10 @@ function Navbar() {
 
         <div className="flex w-[119px] justify-evenly items-center">
           <span className="relative ">
+            {/* amount */}
+            {/* <div className="absolute -translate-y-[60%] text-center w-full text-white mx-auto bottom-0 z-100">
+              {cart.length}
+            </div> */}
             <img
               src={cartIcon}
               alt="cart"
@@ -88,26 +93,32 @@ function Navbar() {
               {/* items */}
               {cart.length > 0
                 ? cart.map((i) => (
-                    <div
+                    <CartItem
                       key={i.item_id}
-                      className="flex items-center w-max mt-2"
-                    >
-                      <div className="flex">
-                        <span>-</span>
-                        <span>Chicken Creole id {i.item_id}</span>
-                      </div>
-                      <div className="ml-10">89,90 kr</div>
-                      <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                        <div onClick={() => handleRemove(i)}>-</div>
-                        <span className="mx-2">{i.count}</span>
-                        <div
-                          onClick={() => handleAdd(i)}
-                          className="active:bg-orange"
-                        >
-                          +
-                        </div>
-                      </div>
-                    </div>
+                      i={i}
+                      handleRemove={handleRemove}
+                      handleAdd={handleAdd}
+                    />
+                    // <div
+                    //   key={i.item_id}
+                    //   className="flex items-center w-max mt-2"
+                    // >
+                    //   <div className="flex">
+                    //     <span>-</span>
+                    //     <span>Chicken Creole id {i.item_id}</span>
+                    //   </div>
+                    //   <div className="ml-10">89,90 kr</div>
+                    //   <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
+                    //     <div onClick={() => handleRemove(i)}>-</div>
+                    //     <span className="mx-2">{i.count}</span>
+                    //     <div
+                    //       onClick={() => handleAdd(i)}
+                    //       className="active:bg-orange"
+                    //     >
+                    //       +
+                    //     </div>
+                    //   </div>
+                    // </div>
                   ))
                 : "No items added"}
             </div>

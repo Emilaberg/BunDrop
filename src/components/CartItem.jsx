@@ -1,0 +1,31 @@
+function CartItem({ i, handleRemove, handleAdd }) {
+  return (
+    <div
+      key={i.item_id}
+      className="flex items-center w-max mt-2"
+    >
+      <div className="flex">
+        <span>-</span>
+        <span>Chicken Creole id {i.item_id}</span>
+      </div>
+      <div className="ml-10">89,90 kr</div>
+      <div className="flex ml-2 items-center border-solid border-2 border-orange px-2 rounded-xl">
+        <div
+          className="active:bg-orange p-1 cursor-pointer"
+          onClick={() => handleRemove(i)}
+        >
+          -
+        </div>
+        <span className="mx-2">{i.count}</span>
+        <div
+          onClick={() => handleAdd(i)}
+          className="active:bg-orange p-1 cursor-pointer"
+        >
+          +
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default CartItem;
