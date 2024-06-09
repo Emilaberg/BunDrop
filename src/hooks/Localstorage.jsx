@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function Localstorage() {
   //jag hämtar ny version från localstorage
   //setLocalstorage
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
 
   let item_is_added = false;
   useEffect(() => {
@@ -13,18 +13,26 @@ function Localstorage() {
   //create
   function add(item) {
     // getCart();
-    updateCartState();
-    //kollar om den finns,
-    if (!is_already_added(item)) {
-      //finns inte objektet, lägg till det i carten, och pusha den nya carten till localstorage
-      cart.push(item);
+    // updateCartState();
+    item_is_added = false;
+    let res = localStorage.getItem("cart");
+    if (res) {
+      let cart = JSON.parse(res);
+      if (!is_already_added(cart, item)) {
+        //finns inte objektet, lägg till det i carten, och pusha den nya carten till localstorage
+        cart.push(item);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.setItem("cart", JSON.stringify([item]));
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
+    //kollar om den finns,
+
     // uppdatera sedan vår cart med den nya carten från localstorage.
-    updateCartState();
+    // updateCartState();
   }
 
-  function is_already_added(item) {
+  function is_already_added(cart, item) {
     cart.map((i) => {
       parseInt(i.item_id) == parseInt(item.item_id)
         ? increaseItemCount(i, true)
@@ -54,19 +62,37 @@ function Localstorage() {
   function update() {}
 
   function updateCartState(type) {
-    if (localStorage.getItem("cart")) {
-      let res = localStorage.getItem("cart");
-      setCart(JSON.parse(res));
-    } else {
+    if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", []);
+    } else {
+      // localStorage.setItem("cart", []);
     }
   }
   //Delete
 
-  function remove() {}
+  function remove(item) {
+    if (localStorage.getItem("cart")) {
+      let res = localStorage.getItem("cart");
+      let cart = JSON.parse(res);
+
+      //filtrerar carten
+      cart.map((i) => {
+        i.item_id == item.item_id ? i.count-- : i;
+      });
+
+      let filteredCart = cart.filter((i) => {
+        if (parseInt(i.count) == 0) {
+          console.log("count is zero");
+          return false;
+        }
+        return true;
+      });
+
+      localStorage.setItem("cart", JSON.stringify(filteredCart));
+    }
+  }
 
   return {
-    cart,
     add,
     getAll,
     update,

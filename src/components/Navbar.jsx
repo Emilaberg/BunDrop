@@ -18,10 +18,23 @@ function Navbar() {
     setTime(new Date());
   }
 
+  function handleAdd(item) {
+    dbHook.add(item);
+
+    let res = localStorage.getItem("cart");
+    res ? setCart(JSON.parse(res)) : res;
+  }
+  function handleRemove(item) {
+    dbHook.remove(item);
+
+    let res = localStorage.getItem("cart");
+    res ? setCart(JSON.parse(res)) : res;
+  }
   function showCart() {
     console.log(dbHook.cart);
     let res = localStorage.getItem("cart");
-    setCart(JSON.parse(res));
+    res ? setCart(JSON.parse(res)) : res;
+    // setCart(JSON.parse(res));
     setCartHidden(!cartHidden);
   }
   //EXTRACT CHANGES FROM LOCALSTORAGE TO HOOK SÅ ATT JAG KAN ANVÄNDA DET I BÅDE NAVBAR OCH I BURGERCARD.
@@ -68,7 +81,7 @@ function Navbar() {
             />
             {/* containern */}
             <div
-              className={`absolute z-10 right-0 py-5 px-2 bg-white ${
+              className={`absolute z-10 right-0 py-5 px-2 w-max bg-white ${
                 cartHidden ? "" : "hidden"
               }`}
             >
@@ -85,9 +98,14 @@ function Navbar() {
                       </div>
                       <div className="ml-10">89,90 kr</div>
                       <div className="flex ml-2 items-center border-2 border-solid border-midnightblack rounded-xl px-2">
-                        <div>-</div>
+                        <div onClick={() => handleRemove(i)}>-</div>
                         <span className="mx-2">{i.count}</span>
-                        <div>+</div>
+                        <div
+                          onClick={() => handleAdd(i)}
+                          className="active:bg-orange"
+                        >
+                          +
+                        </div>
                       </div>
                     </div>
                   ))
