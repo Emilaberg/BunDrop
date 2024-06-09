@@ -1,15 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PaymentNavbar from "../components/PaymentNavbar";
 import ms from "../assets/images/icons/mastercard.svg";
 import visa from "../assets/images/icons/visa.svg";
 import nets from "../assets/images/icons/nets.svg";
 import swishIcon from "../assets/images/icons/swish.svg";
-
-import { Link, useNavigate, useParams } from "react-router-dom";
+import Localstorage from "../hooks/Localstorage";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 function PaymentPage({ ongoingOrder, createOrderId }) {
-  const { paymentMethod } = useParams();
+  const dbHook = Localstorage();
 
+  const { paymentMethod, orderId } = useParams();
+
+  const [cardNumber, setCardNumber] = useState("");
+  const [validMonth, setValidMonth] = useState("");
+  const [validYear, setValidYear] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [currentOrder, setCurrentOrder] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     if (ongoingOrder == false) {
@@ -20,18 +32,29 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
   function pay(e) {
     e.preventDefault();
 
-    const order = createOrder();
-    navigate(`/order-confirmation/${order.id}`);
-  }
+    // console.log(orderId);
+    // fetch("http://localhost:3000/orders")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     let order = data.filter((o) => o.id == orderId);
+    //     setCurrentOrder(order);
+    //   });
 
-  function createOrder() {
-    const order = {
-      id: createOrderId(),
-      name: "something",
-      ordered: "this n that",
+    let res = localStorage.getItem(`${orderId}`);
+    let order = JSON.parse(res);
+
+    let payment = {
+      order: order,
+      cardNumber: cardNumber,
+      validMonth: validMonth,
+      validYear: validYear,
+      cvv: cvv,
     };
-    console.log(order);
-    return order;
+
+    currentOrder.confirmed = true;
+    dbHook.createOrder(payment);
+    localStorage.clear();
+    navigate(`/order-confirmation/${currentOrder.id}`);
   }
 
   function onSwishConfirmation() {
@@ -83,6 +106,7 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
                   className="bg-paleGray px-2 py-1"
                   type="text"
                   placeholder="**** **** **** ****"
+                  onChange={(e) => setCardNumber(e.target.value)}
                 />
               </div>
               <div className="flex flex-col">
@@ -92,6 +116,8 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
                     className="bg-paleGray px-2 py-1 w-1/2"
                     name=""
                     id=""
+                    defaultValue={validMonth}
+                    onChange={(e) => setValidMonth(e.target.value)}
                   >
                     <option value="">1</option>
                     <option value="">2</option>
@@ -110,6 +136,8 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
                     className="bg-paleGray px-2 py-1 w-1/2"
                     name=""
                     id=""
+                    defaultValue={validYear}
+                    onChange={(e) => setValidYear(e.target.value)}
                   >
                     <option value="">24</option>
                     <option value="">25</option>
@@ -139,6 +167,7 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
                   type="text"
                   name=""
                   id=""
+                  onChange={(e) => setCvv(e.target.value)}
                 />
               </div>
               <img

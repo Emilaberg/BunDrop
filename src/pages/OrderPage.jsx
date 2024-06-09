@@ -3,17 +3,25 @@ import OrderItem from "../components/OrderItem";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Payslip from "../components/Payslip";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Localstorage from "../hooks/Localstorage";
 
 function OrderPage({ setOngoingOrder }) {
   const [reviewOrderDetails, setReviewOrderDetails] = useState(true);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
 
+  const Navigate = useNavigate();
+
   const [rememberMe, setRememberMe] = useState(false);
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const dbHook = Localstorage();
+
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   function reviewOrder() {
     setReviewOrderDetails(!reviewOrderDetails);
@@ -21,6 +29,24 @@ function OrderPage({ setOngoingOrder }) {
 
   function handleSelectPaymentMethod(e) {
     setSelectedPaymentMethod(e.target.value);
+  }
+
+  function onFormSubmit(e) {
+    e.preventDefault();
+    setOngoingOrder(true);
+
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    let order = {
+      id: n,
+      name: name,
+      number: number,
+      email: email,
+      password: password,
+      items: cart,
+    };
+    // dbHook.createOrder(order);
+    localStorage.setItem(`${n}`, JSON.stringify(order));
+    Navigate(`/betalning/nets_paymentMethod_${selectedPaymentMethod}/${n}`);
   }
 
   useEffect(() => {
@@ -76,6 +102,7 @@ function OrderPage({ setOngoingOrder }) {
                       className="text-midnightblack bg-paleGray w-1/2 py-3 px-2"
                       type="firstname"
                       placeholder="namn"
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <div>
                       Obligatorisk <span className=" text-orange">*</span>
@@ -83,14 +110,10 @@ function OrderPage({ setOngoingOrder }) {
                   </div>
                   <div className="mt-auto">
                     <input
-                      className="text-midnightblack bg-paleGray w-20 mr-1 py-3 px-1"
-                      type="number"
-                      placeholder="+46"
-                    />
-                    <input
                       className="text-midnightblack bg-paleGray w-1/2 py-3 px-2"
                       type="phone"
                       placeholder="telefonnummer"
+                      onChange={(e) => setNumber(e.target.value)}
                     />
                     <div>
                       Obligatorisk <span className=" text-darkblue">*</span>
@@ -101,6 +124,7 @@ function OrderPage({ setOngoingOrder }) {
                       className="text-midnightblack bg-paleGray w-1/2 py-3 px-2"
                       type="email"
                       placeholder="email"
+                      onChange={(e) => setemail(e.target.value)}
                     />
                     <div>
                       Obligatorisk <span className=" text-darkblue">*</span>
@@ -135,11 +159,13 @@ function OrderPage({ setOngoingOrder }) {
                           className="text-midnightblack bg-paleGray w-1/2 py-3 px-2"
                           type="password"
                           placeholder="lösenord"
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                         <input
                           className="text-midnightblack bg-paleGray w-1/2 py-3 px-2"
                           type="password"
                           placeholder="Upprepa lösenord"
+                          onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                       </div>
                     ) : (
@@ -155,13 +181,12 @@ function OrderPage({ setOngoingOrder }) {
                     <option value="card">kort</option>
                     <option value="swish">swish</option>
                   </select>
-                  <Link
+                  <button
                     className="bg-orange rounded-2xl w-full px-5 py-2"
-                    to={`/betalning/nets_paymentMethod_${selectedPaymentMethod}`}
-                    onClick={() => setOngoingOrder(true)}
+                    onClick={onFormSubmit}
                   >
                     Gå till betalning
-                  </Link>
+                  </button>
                 </div>
               </form>
             </div>

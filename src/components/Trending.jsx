@@ -1,8 +1,11 @@
 import BurgerCard from "./BurgerCard";
 import { useState, useEffect } from "react";
+import Localstorage from "../hooks/Localstorage";
 
 function Trending() {
   const [menu, setMenu] = useState([]);
+  const dbHook = Localstorage();
+
   useEffect(() => {
     fetch("http://localhost:3000/menu")
       .then((res) => res.json())
@@ -17,6 +20,7 @@ function Trending() {
           <BurgerCard
             key={burger.id}
             item={burger}
+            dbHook={dbHook}
           />
         ))}
       </div>

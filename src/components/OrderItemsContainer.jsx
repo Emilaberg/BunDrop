@@ -43,11 +43,13 @@ function OrderItemsContainer({
         <div className="bg-midnightblack p-2 mt-10">
           <div className="flex items-center">
             SubTotal:
-            <span className="ml-auto">{totalPrice} kr</span>
+            <span className="ml-auto">{calcTotalPrice()} kr</span>
           </div>
           <div className="flex items-center">
             tax 25%:
-            <span className="ml-auto">521 kr</span>
+            <span className="ml-auto">
+              {Math.floor(calcTotalPrice() * 0.25)} kr
+            </span>
           </div>
           <div className="flex items-center">
             Standard delivery:
@@ -59,7 +61,9 @@ function OrderItemsContainer({
       <div className="bg-midnightblack mt-36 px-2 py-1">
         <div className="flex items-center">
           Total (inc. VAT)
-          <span className="ml-auto">{calcTotalPrice()} kr</span>
+          <span className="ml-auto">
+            {Math.floor(calcTotalPrice() * 1.25)} kr
+          </span>
         </div>
 
         <button

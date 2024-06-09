@@ -16,7 +16,6 @@ function MenuPage() {
 
   function onSearch(value) {
     let res = menu.filter((item) => {
-      console.log(typeof item.category);
       if (item.category.toLowerCase().includes(value.toLowerCase()))
         return true;
 

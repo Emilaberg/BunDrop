@@ -10,6 +10,7 @@ function BurgerCard({ bg, item, dbHook }) {
   };
 
   function handleClick() {
+    console.log(dbHook);
     dbHook.add(cartItem);
   }
   return (

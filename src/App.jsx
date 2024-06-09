@@ -16,9 +16,6 @@ function App() {
   // förhindrar så att man inte kan nå betalningsidan genom bara url, buggig som faAn
   const [ongoingOrder, setOngoingOrder] = useState(false);
 
-  function createOrderId() {
-    return "order-id-1";
-  }
   return (
     <Router>
       {/* KOMMER VISAS PÅ ALLA SIDOR */}
@@ -39,13 +36,8 @@ function App() {
           element={<OrderPage setOngoingOrder={setOngoingOrder} />}
         ></Route>
         <Route
-          path="/betalning/:paymentMethod"
-          element={
-            <PaymentPage
-              ongoingOrder={ongoingOrder}
-              createOrderId={createOrderId}
-            />
-          }
+          path="/betalning/:paymentMethod/:orderId"
+          element={<PaymentPage ongoingOrder={ongoingOrder} />}
         ></Route>
         <Route
           path="/order-confirmation/:orderId"

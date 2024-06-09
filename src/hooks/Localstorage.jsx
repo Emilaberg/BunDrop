@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 function Localstorage() {
   //jag hämtar ny version från localstorage
@@ -30,6 +30,34 @@ function Localstorage() {
 
     // uppdatera sedan vår cart med den nya carten från localstorage.
     // updateCartState();
+  }
+
+  function createOrder(order) {
+    console.log(order);
+
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    };
+
+    fetch("http://localhost:3000/orders", options);
+
+    // localStorage.setItem("orders", JSON.parse());
+  }
+
+  function updateOrder(order) {
+    console.log(order);
+    // let options = {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(order),
+    // };
+    // fetch("http://localhost:3000/orders", options);
   }
 
   function is_already_added(cart, item) {
@@ -93,6 +121,8 @@ function Localstorage() {
   }
 
   return {
+    updateOrder,
+    createOrder,
     add,
     getAll,
     update,
