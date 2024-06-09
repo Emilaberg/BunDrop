@@ -86,7 +86,7 @@ function Navbar() {
             />
             {/* containern */}
             <div
-              className={`absolute z-10 right-0 py-5 px-2 w-max bg-white ${
+              className={`absolute z-10 right-0 py-5 px-2 w-max bg-sand text-naval border-t-[20px] border--[20px] border-solid border-t-darkblue rounded-xl ${
                 cartHidden ? "" : "hidden"
               }`}
             >

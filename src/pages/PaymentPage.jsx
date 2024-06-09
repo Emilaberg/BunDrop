@@ -51,7 +51,7 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
     currentOrder.confirmed = true;
     dbHook.createOrder(payment);
     localStorage.clear();
-    navigate(`/order-confirmation/${currentOrder.id}`);
+    navigate(`/order-confirmation/${order.id}`);
   }
 
   function onSwishConfirmation() {
@@ -69,7 +69,7 @@ function PaymentPage({ ongoingOrder, createOrderId }) {
     currentOrder.confirmed = true;
     dbHook.createOrder(payment);
     localStorage.clear();
-    navigate(`/order-confirmation/${currentOrder.id}`);
+    navigate(`/order-confirmation/${order.id}`);
   }
 
   function handleCancel() {

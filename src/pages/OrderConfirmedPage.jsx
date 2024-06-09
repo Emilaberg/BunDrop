@@ -8,13 +8,15 @@ function OrderConfirmedPage() {
   return (
     <>
       <Navbar />
-      <div className="h-screen ">
-        <h1>Din beställning är mottagen</h1>
-        <h1>
+      <div className="h-screen pt-20 bg-midnightblack text-center text-white">
+        <h1 className="text-5xl">Din beställning är mottagen</h1>
+        <h1 className="text-2xl">
           Ditt Ordernummer är: <span>{orderId}</span>
         </h1>
-        <h3>OBS. Spara ditt ordernummer, detta är ditt användarnamn</h3>
-        <h3>
+        <h3 className="mt-5">
+          OBS. Spara ditt ordernummer, detta är ditt användarnamn
+        </h3>
+        <h3 className="mt-2">
           Om du har valt att skapa konto, kan du nu logga in för att kolla
           status på din order
         </h3>

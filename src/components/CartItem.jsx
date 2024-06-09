@@ -6,7 +6,7 @@ function CartItem({ i, handleRemove, handleAdd }) {
     >
       <div className="flex">
         <span>-</span>
-        <span>{i.title}</span>
+        <span className="pl-2">{i.title}</span>
       </div>
       <div className="ml-10">{i.count}st </div>
       <div className="flex ml-2 items-center border-solid border-2 border-orange px-2 rounded-xl">
@@ -24,7 +24,7 @@ function CartItem({ i, handleRemove, handleAdd }) {
           +
         </div>
       </div>
-      <div className="">{i.count * i.price} kr</div>
+      <div className="pl-2">{i.count * i.price} kr</div>
     </div>
   );
 }
